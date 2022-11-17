@@ -41,13 +41,14 @@ class AjaxRating {
   }
 
   async saveRating() {
+    const formData = new FormData();
+    Object.keys(this.data).forEach(key => formData.append(key, this.data[key]));
+
     const response = await fetch(this.settings.admin_ajax, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(this.data),
+      body: formData,
     });
+
     if(!response.ok) {
       return;
     }

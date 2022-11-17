@@ -14,8 +14,8 @@ class LoadResults {
     this.errorMsg = response.errorMsg;
     this.token = response.token;
     this.id = response.id;
-    this.avgRatingContainer = document.querySelector(this.widgetContainer + '.js-rmp-avg-rating, .js-rmp-results-widget--' + postID + ' .js-rmp-avg-rating');
-    this.voteCountContainer = document.querySelector(this.widgetContainer + '.js-rmp-vote-count, .js-rmp-results-widget--' + postID + ' .js-rmp-vote-count');
+    this.avgRatingContainer = document.querySelector(this.widgetContainer + '.js-rmp-avg-rating ' /* + ', .js-rmp-results-widget--' + postID + ' .js-rmp-avg-rating'*/);
+    this.voteCountContainer = document.querySelector(this.widgetContainer + '.js-rmp-vote-count' /*+ ', .js-rmp-results-widget--' + postID + ' .js-rmp-vote-count'*/);
     this.noVotesContainer = document.querySelector(this.widgetContainer + '.js-rmp-not-rated');
     this.resultsTextContainer = document.querySelector(this.widgetContainer + '.js-rmp-results');
     this.ratingIcons = document.querySelectorAll(this.widgetContainer + '.js-rmp-rating-icon');
@@ -32,18 +32,27 @@ class LoadResults {
       this.msgContainer.innerHTML = this.errorMsg.join('<br />');
       this.msgContainer.classList.add('rmp-rating-widget__msg--alert');
       this.ratingIcons.forEach((item) => {
-        item.classList.remove('rmp-icon--processing-rating rmp-icon--hovered');
+        item.classList.remove('rmp-icon--processing-rating', 'rmp-icon--hovered');
       })
       return;
     }
 
-    this.avgRatingContainer.textContent = this.avgRating;
-    this.voteCountContainer.textContent = this.voteCount;
+    if(this.avgRatingContainer) {
+      this.avgRatingContainer.textContent = this.avgRating;
+    }
+    if(this.voteCountContainer) {
+      this.voteCountContainer.textContent = this.voteCount;
+    }
     this.toneDownIcons();
     this.highlightIcons();
-    this.noVotesContainer.classList.add('rmp-rating-widget__not-rated--hidden');
-    this.resultsTextContainer.classList.remove('rmp-rating-widget__results--hidden')
+    if(this.noVotesContainer) {
+      this.noVotesContainer.classList.add('rmp-rating-widget__not-rated--hidden');
+    }
+    if(this.resultsTextContainer) {
+      this.resultsTextContainer.classList.remove('rmp-rating-widget__results--hidden');
+    }
     this.msgContainer.textContent = this.tnxMsg;
+
     let socialWidget = new SocialWidget(this.widgetContainer, this.rating);
     let feedbackWidget = new FeedbackWidget(this.widgetContainer, this.postID, this.rating, this.token, this.id );
     let cookiePush = new CookiePush(this.postID);
@@ -52,10 +61,10 @@ class LoadResults {
 
   toneDownIcons() {
     this.ratingIcons.forEach((item) => {
-      item.classList.remove('rmp-icon--full-highlight rmp-icon--half-highlight rmp-icon--processing-rating rmp-icon--hovered js-rmp-remove-half-star js-rmp-replace-half-star');
+      item.classList.remove('rmp-icon--full-highlight', 'rmp-icon--half-highlight', 'rmp-icon--processing-rating', 'rmp-icon--hovered', 'js-rmp-remove-half-star', 'js-rmp-replace-half-star');
     });
     this.resultIcons.forEach((item) => {
-      item.classList.remove('rmp-icon--full-highlight rmp-icon--half-highlight rmp-icon--processing-rating js-rmp-remove-half-star js-rmp-replace-half-star');
+      item.classList.remove('rmp-icon--full-highlight', 'rmp-icon--half-highlight', 'rmp-icon--processing-rating', 'js-rmp-remove-half-star', 'js-rmp-replace-half-star');
     });
   }
 

@@ -29,9 +29,9 @@ class InitWidget {
     this.doubleWidgetCheck();
     this.ratingItems.forEach((item) => {
       item.style.cursor = 'pointer';
-      item.addEventListener('mouseover', (event) => this.hoverIcons());
+      item.addEventListener('mouseover', (event) => this.hoverIcons(event));
       item.addEventListener('mouseout', (event) => this.stopHoverIcons());
-      item.addEventListener('click', (event) => this.ratingIconClicked());
+      item.addEventListener('click', (event) => this.ratingIconClicked(event));
     })
     this.ratingItemsList.addEventListener('mouseleave', (event) => this.removeHoverTexts());
     let cookieCheck = new CookieCheck(this.widgetContainer, this.postID);
@@ -57,7 +57,7 @@ class InitWidget {
 
   hoverIcons(event) {
     this.hoveredItemOrder = parseInt(event.currentTarget.dataset.value, 10);
-    this.ratingText = event.currentTarget.setAttribute('data-descriptive-rating');
+    this.ratingText = event.currentTarget.dataset.descriptiveRating;
 
     // highlight icons
     this.ratingIcons.forEach((item, index) => {

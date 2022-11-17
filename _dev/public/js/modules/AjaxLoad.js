@@ -7,8 +7,8 @@ class AjaxLoad {
     this.postID = postID;
     this.widgetContainer = '.js-rmp-widgets-container--' + postID + ' ';
     this.settings = rmp_frontend;
-    this.avgRatingContainer = document.querySelector(this.widgetContainer + '.js-rmp-avg-rating, .js-rmp-results-widget--' + postID + ' .js-rmp-avg-rating');
-    this.voteCountContainer = document.querySelector(this.widgetContainer + '.js-rmp-vote-count, .js-rmp-results-widget--' + postID + ' .js-rmp-vote-count');
+    this.avgRatingContainer = document.querySelector(this.widgetContainer + '.js-rmp-avg-rating' /* + ', .js-rmp-results-widget--' + postID + ' .js-rmp-avg-rating'*/);
+    this.voteCountContainer = document.querySelector(this.widgetContainer + '.js-rmp-vote-count,' /*+ ' .js-rmp-results-widget--' + postID + ' .js-rmp-vote-count'*/);
     this.noVotesContainer = document.querySelector(this.widgetContainer + '.js-rmp-not-rated');
     this.resultsTextContainer = document.querySelector(this.widgetContainer + '.js-rmp-results');
     this.noVotesContainer = document.querySelector(this.widgetContainer + '.js-rmp-not-rated');
@@ -24,12 +24,12 @@ class AjaxLoad {
 
 
   async events() {
+    const formData = new FormData();
+    Object.keys(this.data).forEach(key => formData.append(key, this.data[key]));
+
     const response = await fetch(this.settings.admin_ajax, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(this.data),
+      body: formData,
     });
     if(!response.ok) {
       return;
@@ -43,22 +43,36 @@ class AjaxLoad {
 
   loadResults(voteCount, avgRating, error) {
     if( error.length ) {
-      this.msgContainer.textContent = error;
-      this.msgContainer.classList.add('rmp-rating-widget__msg--alert');
+      if( this.msgContainer ) {
+        this.msgContainer.textContent = error;
+        this.msgContainer.classList.add('rmp-rating-widget__msg--alert');
+      }
       return;
     }
     // inject data
-    this.avgRatingContainer.textContent = avgRating;
-    this.voteCountContainer.textContent = voteCount;
+    if(this.avgRatingContainer) {
+      this.avgRatingContainer.textContent = avgRating;
+    }
+    if(this.voteCountContainer) {
+      this.voteCountContainer.textContent = voteCount;
+    }
     // highlight icons
     let highlightIcons = new IconHighlighter(this.widgetContainer, this.postID, avgRating);
     // handle classes
     if( avgRating === 0 ) {
-      this.noVotesContainer.classList.remove('rmp-rating-widget__not-rated--hidden')
-      this.resultsTextContainer.classList.add('rmp-rating-widget__results--hidden')
+      if(this.noVotesContainer) {
+        this.noVotesContainer.classList.remove('rmp-rating-widget__not-rated--hidden');
+      }
+      if(this.resultsTextContainer) {
+        this.resultsTextContainer.classList.add('rmp-rating-widget__results--hidden');
+      }
     } else {
-      this.noVotesContainer.classList.add('rmp-rating-widget__not-rated--hidden')
-      this.resultsTextContainer.classList.remove('rmp-rating-widget__results--hidden')
+      if(this.noVotesContainer) {
+        this.noVotesContainer.classList.add('rmp-rating-widget__not-rated--hidden');
+      }
+      if(this.resultsTextContainer) {
+        this.resultsTextContainer.classList.remove('rmp-rating-widget__results--hidden');
+      }
     }
     let browserSupport = new BrowserSupport();
   }
