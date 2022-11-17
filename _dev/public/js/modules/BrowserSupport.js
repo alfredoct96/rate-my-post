@@ -1,9 +1,7 @@
-import $ from 'jquery';
-
 class BrowserSupport {
   constructor() {
-    this.starsToBeReplaced = $('.js-rmp-replace-half-star');
-    this.starsToBeRemoved = $('.js-rmp-remove-half-star');
+    this.starsToBeReplaced = document.querySelectorAll('.js-rmp-replace-half-star');
+    this.starsToBeRemoved = document.querySelectorAll('.js-rmp-remove-half-star');
     this.testElement = document.createElement( "x-test" );
     this.supportTest = typeof this.testElement.style.webkitBackgroundClip;
     this.events();
@@ -20,9 +18,13 @@ class BrowserSupport {
       return;
     }
 
-    this.starsToBeReplaced.removeClass('rmp-icon--half-highlight')
-    this.starsToBeReplaced.addClass('rmp-icon--full-highlight')
-    this.starsToBeRemoved.removeClass('rmp-icon--half-highlight')
+    this.starsToBeReplaced.forEach((item) => {
+      item.classList.remove('rmp-icon--half-highlight');
+      item.classList.add('rmp-icon--full-highlight');
+    });
+    this.starsToBeRemoved.forEach((item) => {
+      item.classList.remove('rmp-icon--half-highlight');
+    });
   }
 }
 
