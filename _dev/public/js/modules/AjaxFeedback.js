@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import rmp_frontend from 'rmp_frontend';
 import FeedbackSubmitted from './FeedbackSubmitted';
 
@@ -45,16 +44,19 @@ class AjaxFeedback {
     })
   }
 
-  saveFeedback() {
-    $.ajax({
-      type: 'POST',
-      url: this.settings.admin_ajax,
-      data: this.data,
-      dataType: 'JSON',
-      success: (response) => {
-        let feedbackSubmitted = new FeedbackSubmitted(this.widgetContainer, response);
-      }
+  async saveFeedback() {
+    const response = await fetch(this.settings.admin_ajax, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.data),
     });
+    if(!response.ok) {
+      return;
+    }
+    const body = await response.json();
+    let feedbackSubmitted = new FeedbackSubmitted(this.widgetContainer, body);
   }
 }
 

@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import rmp_frontend from 'rmp_frontend';
 import IconHighlighter from './IconHighlighter';
 import BrowserSupport from './BrowserSupport';
@@ -8,13 +7,13 @@ class AjaxLoad {
     this.postID = postID;
     this.widgetContainer = '.js-rmp-widgets-container--' + postID + ' ';
     this.settings = rmp_frontend;
-    this.avgRatingContainer = $(this.widgetContainer + '.js-rmp-avg-rating, .js-rmp-results-widget--' + postID + ' .js-rmp-avg-rating');
-    this.voteCountContainer = $(this.widgetContainer + '.js-rmp-vote-count, .js-rmp-results-widget--' + postID + ' .js-rmp-vote-count');
-    this.noVotesContainer = $(this.widgetContainer + '.js-rmp-not-rated');
-    this.resultsTextContainer = $(this.widgetContainer + '.js-rmp-results');
-    this.noVotesContainer = $(this.widgetContainer + '.js-rmp-not-rated');
-    this.resultsTextContainer = $(this.widgetContainer + '.js-rmp-results');
-    this.msgContainer = $(this.widgetContainer + '.js-rmp-msg');
+    this.avgRatingContainer = document.querySelector(this.widgetContainer + '.js-rmp-avg-rating, .js-rmp-results-widget--' + postID + ' .js-rmp-avg-rating');
+    this.voteCountContainer = document.querySelector(this.widgetContainer + '.js-rmp-vote-count, .js-rmp-results-widget--' + postID + ' .js-rmp-vote-count');
+    this.noVotesContainer = document.querySelector(this.widgetContainer + '.js-rmp-not-rated');
+    this.resultsTextContainer = document.querySelector(this.widgetContainer + '.js-rmp-results');
+    this.noVotesContainer = document.querySelector(this.widgetContainer + '.js-rmp-not-rated');
+    this.resultsTextContainer = document.querySelector(this.widgetContainer + '.js-rmp-results');
+    this.msgContainer = document.querySelector(this.widgetContainer + '.js-rmp-msg');
     this.data = {
       action:'load_results',
       postID: this.postID,
@@ -24,39 +23,42 @@ class AjaxLoad {
   }
 
 
-  events() {
-    $.ajax({
-      type: 'POST',
-      url: this.settings.admin_ajax,
-      data: this.data,
-      dataType: 'JSON',
-      success: (response) => {
-        let voteCount = response.voteCount;
-        let avgRating =  response.avgRating;
-        let error =  response.errorMsg;
-        this.loadResults(voteCount, avgRating, error);
-      }
+  async events() {
+    const response = await fetch(this.settings.admin_ajax, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.data),
     });
+    if(!response.ok) {
+      return;
+    }
+    const body = await response.json();
+    let voteCount = body.voteCount;
+    let avgRating = body.avgRating;
+    let error = response.errorMsg;
+    this.loadResults(voteCount, avgRating, error);
   }
 
   loadResults(voteCount, avgRating, error) {
     if( error.length ) {
-      this.msgContainer.text(error);
-      this.msgContainer.addClass('rmp-rating-widget__msg--alert');
+      this.msgContainer.textContent = error;
+      this.msgContainer.classList.add('rmp-rating-widget__msg--alert');
       return;
     }
     // inject data
-    this.avgRatingContainer.text(avgRating);
-    this.voteCountContainer.text(voteCount);
+    this.avgRatingContainer.textContent = avgRating;
+    this.voteCountContainer.textContent = voteCount;
     // highlight icons
     let highlightIcons = new IconHighlighter(this.widgetContainer, this.postID, avgRating);
     // handle classes
     if( avgRating === 0 ) {
-      this.noVotesContainer.removeClass('rmp-rating-widget__not-rated--hidden')
-      this.resultsTextContainer.addClass('rmp-rating-widget__results--hidden')
+      this.noVotesContainer.classList.remove('rmp-rating-widget__not-rated--hidden')
+      this.resultsTextContainer.classList.add('rmp-rating-widget__results--hidden')
     } else {
-      this.noVotesContainer.addClass('rmp-rating-widget__not-rated--hidden')
-      this.resultsTextContainer.removeClass('rmp-rating-widget__results--hidden')
+      this.noVotesContainer.classList.add('rmp-rating-widget__not-rated--hidden')
+      this.resultsTextContainer.classList.remove('rmp-rating-widget__results--hidden')
     }
     let browserSupport = new BrowserSupport();
   }

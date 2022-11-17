@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import rmp_frontend from 'rmp_frontend';
 import LoadResults from './LoadResults';
 
@@ -41,16 +40,19 @@ class AjaxRating {
     })
   }
 
-  saveRating() {
-    $.ajax({
-      type: 'POST',
-      url: this.settings.admin_ajax,
-      data: this.data,
-      dataType: 'JSON',
-      success: (response) => {
-        let loadResults = new LoadResults(this.postID, this.widgetContainer, response, this.rating);
-      }
+  async saveRating() {
+    const response = await fetch(this.settings.admin_ajax, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.data),
     });
+    if(!response.ok) {
+      return;
+    }
+    const body = await response.json();
+    let loadResults = new LoadResults(this.postID, this.widgetContainer, body, this.rating);
   }
 }
 
