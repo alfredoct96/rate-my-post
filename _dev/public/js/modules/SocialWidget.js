@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import rmp_frontend from 'rmp_frontend';
 
 class SocialWidget {
@@ -7,8 +6,8 @@ class SocialWidget {
     this.socialEnabled = rmp_frontend.social;
     this.ratingRequired = rmp_frontend.positiveThreshold;
     this.rating = rating;
-    this.ratingWidget = $(this.widgetContainer + '.js-rmp-rating-widget');
-    this.socialWidget = $(this.widgetContainer + '.js-rmp-social-widget');
+    this.ratingWidget = document.querySelector(this.widgetContainer + '.js-rmp-rating-widget');
+    this.socialWidget = document.querySelector(this.widgetContainer + '.js-rmp-social-widget');
     this.events();
   }
 
@@ -16,8 +15,8 @@ class SocialWidget {
     if(this.socialEnabled != 2 || this.rating <= this.ratingRequired) {
       return;
     }
-    this.socialWidget.addClass('rmp-social-widget--visible');
-    this.ratingWidget.addClass('rmp-rating-widget--hidden');
+    this.socialWidget.classList.add('rmp-social-widget--visible');
+    this.ratingWidget.classList.add('rmp-rating-widget--hidden');
   }
 
 }
