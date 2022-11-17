@@ -7,8 +7,8 @@ class IconHighlighter {
     this.postID = postID;
     this.widgetContainer = widgetContainer;
     this.avgRating = avgRating;
-    this.resultIcons = $('.js-rmp-results-widget--'+ postID +' .js-rmp-results-icon');
-    this.ratingIcons = $(this.widgetContainer + '.js-rmp-rating-icon');
+    this.resultIcons = document.querySelectorAll('.js-rmp-results-widget--'+ postID +' .js-rmp-results-icon');
+    this.ratingIcons = document.querySelectorAll(this.widgetContainer + '.js-rmp-rating-icon');
     this.hideRatings = rmp_frontend.notShowRating;
     this.events();
   }
@@ -36,17 +36,17 @@ class IconHighlighter {
        browserCompatbilityClass = 'js-rmp-replace-half-star';
     }
     // highlight icons in results widget
-    $(this.resultIcons).each((index, item) => {
+    this.resultIcons.forEach((item, index) => {
       if(index + 1 <= fullStars) {
-        $(item).addClass('rmp-icon--full-highlight');
+        item.classList.add('rmp-icon--full-highlight');
       }
       if( extraHalfStar && (index + 1 == fullStars + 1)  ) {
-        $(item).addClass('rmp-icon--half-highlight');
-        $(item).addClass(browserCompatbilityClass);
+        item.classList.add('rmp-icon--half-highlight');
+        item.classList.add(browserCompatbilityClass);
       }
 
       if( extraFullStar && (index + 1 == fullStars + 1)  ) {
-        $(item).addClass('rmp-icon--full-highlight');
+        item.classList.add('rmp-icon--full-highlight');
       }
     });
     // if rating widget should not be colored
@@ -54,17 +54,17 @@ class IconHighlighter {
       return;
     }
     // highlight rating icons
-    $(this.ratingIcons).each((index, item) => {
+    this.ratingIcons.forEach((item, index) => {
       if(index + 1 <= fullStars) {
-        $(item).addClass('rmp-icon--full-highlight');
+        item.classList.add('rmp-icon--full-highlight');
       }
       if( extraHalfStar && (index + 1 == fullStars + 1)  ) {
-        $(item).addClass('rmp-icon--half-highlight');
-        $(item).addClass(browserCompatbilityClass);
+        item.classList.add('rmp-icon--half-highlight');
+        item.classList.add(browserCompatbilityClass);
       }
 
       if( extraFullStar && (index + 1 == fullStars + 1)  ) {
-        $(item).addClass('rmp-icon--full-highlight');
+        item.classList.add('rmp-icon--full-highlight');
       }
     });
     let browserSupport = new BrowserSupport();
