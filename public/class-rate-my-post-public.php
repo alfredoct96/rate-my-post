@@ -74,7 +74,7 @@ class Rate_My_Post_Public {
 		$post_id = get_the_id();
 		$customization = $this->custom_strings( $post_id );
 		// register scripts
-		wp_register_script( $this->rate_my_post, plugin_dir_url( __FILE__ ) . 'js/rate-my-post.js', array( 'jquery' ), $this->version, true );
+		wp_register_script( $this->rate_my_post, plugin_dir_url( __FILE__ ) . 'js/rate-my-post.js', array(), $this->version, true );
 		wp_register_script( 'rmp-recaptcha', 'https://www.google.com/recaptcha/api.js?render=' . $security['siteKey'], array(), null, false );
 		// enqueue scripts
 		wp_enqueue_script( $this->rate_my_post );
