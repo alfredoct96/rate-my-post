@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import AjaxRating from './AjaxRating';
 import FreezeWidget from './FreezeWidget';
 import CookieCheck from './CookieCheck';
@@ -10,10 +9,10 @@ class InitWidget {
     this.postID = postID;
     this.widgetContainer = '.js-rmp-widgets-container--' + postID + ' ';
     this.resultsWidget = '.js-rmp-results-widget--' + postID;
-    this.ratingItems = $(this.widgetContainer + '.js-rmp-rating-item');
-    this.ratingItemsList = $(this.widgetContainer + '.js-rmp-rating-icons-list');
-    this.ratingIcons = $(this.widgetContainer + '.js-rmp-rating-icon');
-    this.ratingTextContainer = $(this.widgetContainer + '.js-rmp-hover-text');
+    this.ratingItems = document.querySelectorAll(this.widgetContainer + '.js-rmp-rating-item');
+    this.ratingItemsList = document.querySelector(this.widgetContainer + '.js-rmp-rating-icons-list');
+    this.ratingIcons = document.querySelectorAll(this.widgetContainer + '.js-rmp-rating-icon');
+    this.ratingTextContainer = document.querySelector(this.widgetContainer + '.js-rmp-hover-text');
     this.ratingText = false;
     this.hoveredItemOrder = 0;
     this.rating = 0;
@@ -21,72 +20,76 @@ class InitWidget {
     this.startTime = Math.floor(Date.now() / 1000);
     this.preventAccidental = rmp_frontend.preventAccidental;
     this.hoverTexts = rmp_frontend.hoverTexts;
-    this.submitBtn = $(this.widgetContainer + '.js-submit-rating-btn');
+    this.submitBtn = document.querySelector(this.widgetContainer + '.js-submit-rating-btn');
     this.saveRating = false;
     this.events();
   }
 
   events() {
     this.doubleWidgetCheck();
-    this.ratingItems.css('cursor', 'pointer');
-    this.ratingItems.on('mouseover', (event) => this.hoverIcons());
-    this.ratingItems.on('mouseout', (event) => this.stopHoverIcons());
-    this.ratingItemsList.on('mouseleave', (event) => this.removeHoverTexts());
-    this.ratingItems.on('click', (event) => this.ratingIconClicked());
+    this.ratingItems.forEach((item) => {
+      item.style.cursor = 'pointer';
+      item.addEventListener('mouseover', (event) => this.hoverIcons());
+      item.addEventListener('mouseout', (event) => this.stopHoverIcons());
+      item.addEventListener('click', (event) => this.ratingIconClicked());
+    })
+    this.ratingItemsList.addEventListener('mouseleave', (event) => this.removeHoverTexts());
     let cookieCheck = new CookieCheck(this.widgetContainer, this.postID);
     let privilegeCheck = new PrivilegeCheck();
   }
 
   doubleWidgetCheck() {
-    let ratingWidgets = $(this.widgetContainer);
-    let resultWidgets = $(this.resultsWidget);
+    let ratingWidgets = document.querySelectorAll(this.widgetContainer);
+    let resultWidgets = document.querySelectorAll(this.resultsWidget);
     if( ratingWidgets.length > 1 || resultWidgets.length > 1 ) { // duplicates cause issues
-      $(ratingWidgets).each((index, item) => {
+      ratingWidgets.forEach((item, index) => {
         if(index > 0) {
-          $(item).remove();
+          item.remove();
         }
       });
-      $(resultWidgets).each((index, item) => {
+      resultWidgets.forEach((item, index) => {
         if(index > 0) {
-          $(item).remove();
+          item.remove();
         }
       });
     }
   }
 
-  hoverIcons() {
-    this.hoveredItemOrder = parseInt($(event.currentTarget).data('value'), 10);
-    this.ratingText = $(event.currentTarget).attr('data-descriptive-rating');
+  hoverIcons(event) {
+    this.hoveredItemOrder = parseInt(event.currentTarget.dataset.value, 10);
+    this.ratingText = event.currentTarget.setAttribute('data-descriptive-rating');
 
     // highlight icons
-    $(this.ratingIcons).each((index, item) => {
+    this.ratingIcons.forEach((item, index) => {
       if(index < this.hoveredItemOrder) {
-        $(item).addClass('rmp-icon--hovered');
+        item.classList.add('rmp-icon--hovered');
       } else {
-        $(item).removeClass('rmp-icon--hovered');
+        item.classList.remove('rmp-icon--hovered');
       }
       // inject texts
       if( this.supportsHover && this.hoverTexts == 2 ) {
-        $(this.ratingTextContainer).text(this.ratingText);
+        this.ratingTextContainer.textContent = this.ratingText;
       }
     });
 
   }
 
   stopHoverIcons() {
-    $(this.ratingIcons).removeClass('rmp-icon--hovered');
+    this.ratingIcons.forEach((item) => {
+      item.classList.remove('rmp-icon--hovered');
+    });
   }
 
   removeHoverTexts() {
-    $(this.ratingTextContainer).text('');
+    this.ratingTextContainer.textContent = '';
   }
 
-  ratingIconClicked() {
-    this.rating = parseInt($(event.currentTarget).data('value'), 10);
-    this.ratingIcons.removeClass('rmp-icon--processing-rating');
-    $(this.ratingIcons).each((index, item) => {
+  ratingIconClicked(event) {
+    this.rating = parseInt(event.currentTarget.dataset.value, 10);
+    this.ratingIcons.forEach((item, index) => {
+      item.classList.remove('rmp-icon--processing-rating');
       if(index < this.rating) {
-        $(item).addClass('rmp-icon--processing-rating');
+        item.classList.add('rmp-icon--processing-rating');
       }
     });
     if(this.preventAccidental == 2) { // enabled
@@ -99,8 +102,8 @@ class InitWidget {
   }
 
   submitButtonHandler() {
-    this.submitBtn.addClass('rmp-rating-widget__submit-btn--visible');
-    this.submitBtn.on('click', (event) => {
+    this.submitBtn.classList.add('rmp-rating-widget__submit-btn--visible');
+    this.submitBtn.addEventListener('click', (event) => {
       if( ! this.saveRating ) {
         this.saveRating = new AjaxRating(this.postID, this.widgetContainer, this.rating, this.startTime);
       }
