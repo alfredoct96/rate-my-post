@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import InitWidget from './modules/InitWidget';
 import AjaxLoad from './modules/AjaxLoad';
 import BrowserSupport from './modules/BrowserSupport';
@@ -19,8 +18,8 @@ function init_rate_my_post() {
   // save post ids to array
   let postsIDs = [];
 
-  $(ratingWidgetContainers).each((index, item) => {
-    let postID = $(item).attr('data-post-id');
+  Array.from(ratingWidgetContainers).forEach((item) => {
+    let postID = item.dataset.postId;
     postsIDs.push(postID);
   });
 
@@ -42,9 +41,11 @@ function init_rate_my_post() {
 };
 
 // Init
-$(document).ready(() => {
+if (document.readyState !== 'loading') {
   init_rate_my_post();
-});
+} else {
+  document.addEventListener('DOMContentLoaded', init_rate_my_post);
+}
 
 export function re_init() {
   console.log('re-init running');
