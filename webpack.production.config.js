@@ -5,7 +5,6 @@ var config = {
     minimize: true
   },
   externals: {
-    jquery: 'jQuery',
     rmp_frontend: 'rmp_frontend',
     grecaptcha: 'grecaptcha',
   },
@@ -18,7 +17,8 @@ var config = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: ['@babel/preset-env'],
+            plugins: ["@babel/plugin-transform-runtime"]
           }
         }
       }
