@@ -15,8 +15,8 @@ class SocialWidget {
     if(this.socialEnabled != 2 || this.rating <= this.ratingRequired) {
       return;
     }
-    this.socialWidget.classList.add('rmp-social-widget--visible');
-    this.ratingWidget.classList.add('rmp-rating-widget--hidden');
+    this.socialWidget?.classList?.add('rmp-social-widget--visible');
+    this.ratingWidget?.classList?.add('rmp-rating-widget--hidden');
   }
 
 }

@@ -45,12 +45,8 @@ class LoadResults {
     }
     this.toneDownIcons();
     this.highlightIcons();
-    if(this.noVotesContainer) {
-      this.noVotesContainer.classList.add('rmp-rating-widget__not-rated--hidden');
-    }
-    if(this.resultsTextContainer) {
-      this.resultsTextContainer.classList.remove('rmp-rating-widget__results--hidden');
-    }
+    this.noVotesContainer?.classList?.add('rmp-rating-widget__not-rated--hidden');
+    this.resultsTextContainer?.classList?.remove('rmp-rating-widget__results--hidden');
     this.msgContainer.textContent = this.tnxMsg;
 
     let socialWidget = new SocialWidget(this.widgetContainer, this.rating);

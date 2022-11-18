@@ -20,7 +20,9 @@ class FreezeWidget {
       item.style.cursor = 'default';
     })
     this.submitBtn.classList.remove('rmp-rating-widget__submit-btn--visible');
-    this.ratingTextContainer.textContent = '';
+    if(this.ratingTextContainer) {
+      this.ratingTextContainer.textContent = '';
+    }
   }
 }
 

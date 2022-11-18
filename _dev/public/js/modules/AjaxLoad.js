@@ -60,19 +60,11 @@ class AjaxLoad {
     let highlightIcons = new IconHighlighter(this.widgetContainer, this.postID, avgRating);
     // handle classes
     if( avgRating === 0 ) {
-      if(this.noVotesContainer) {
-        this.noVotesContainer.classList.remove('rmp-rating-widget__not-rated--hidden');
-      }
-      if(this.resultsTextContainer) {
-        this.resultsTextContainer.classList.add('rmp-rating-widget__results--hidden');
-      }
+      this.noVotesContainer?.classList?.remove('rmp-rating-widget__not-rated--hidden');
+      this.resultsTextContainer?.classList?.add('rmp-rating-widget__results--hidden');
     } else {
-      if(this.noVotesContainer) {
-        this.noVotesContainer.classList.add('rmp-rating-widget__not-rated--hidden');
-      }
-      if(this.resultsTextContainer) {
-        this.resultsTextContainer.classList.remove('rmp-rating-widget__results--hidden');
-      }
+      this.noVotesContainer?.classList?.add('rmp-rating-widget__not-rated--hidden');
+      this.resultsTextContainer?.classList?.remove('rmp-rating-widget__results--hidden');
     }
     let browserSupport = new BrowserSupport();
   }

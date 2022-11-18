@@ -29,8 +29,10 @@ class CookieCheck {
     }
 
     let freezeWidget = new FreezeWidget(this.widgetContainer);
-    this.msgContainer.textContent = this.tnxMsg;
-    this.ratingWidget.classList.add('rmp-rating-widget--has-rated')
+    if(this.msgContainer) {
+      this.msgContainer.textContent = this.tnxMsg;
+    }
+    this.ratingWidget?.classList?.add('rmp-rating-widget--has-rated');
 
   }
 

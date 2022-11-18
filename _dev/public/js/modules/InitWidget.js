@@ -67,7 +67,7 @@ class InitWidget {
         item.classList.remove('rmp-icon--hovered');
       }
       // inject texts
-      if( this.supportsHover && this.hoverTexts == 2 ) {
+      if( this.supportsHover && this.hoverTexts == 2 && this.ratingTextContainer ) {
         this.ratingTextContainer.textContent = this.ratingText;
       }
     });
@@ -81,7 +81,9 @@ class InitWidget {
   }
 
   removeHoverTexts() {
-    this.ratingTextContainer.textContent = '';
+    if(this.ratingTextContainer) {
+      this.ratingTextContainer.textContent = '';
+    }
   }
 
   ratingIconClicked(event) {
