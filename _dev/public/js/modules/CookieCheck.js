@@ -24,7 +24,7 @@ class CookieCheck {
     }
 
     let postsArray = this.existingCookie.split(',');
-    if(postsArray.indexOf(this.postID) === -1) {
+    if(!postsArray.includes(this.postID)) {
       return;
     }
 
