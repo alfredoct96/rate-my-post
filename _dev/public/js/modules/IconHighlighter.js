@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import BrowserSupport from './BrowserSupport';
 import rmp_frontend from 'rmp_frontend';
 
