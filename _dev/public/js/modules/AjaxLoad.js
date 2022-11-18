@@ -7,8 +7,8 @@ class AjaxLoad {
     this.postID = postID;
     this.widgetContainer = '.js-rmp-widgets-container--' + postID + ' ';
     this.settings = rmp_frontend;
-    this.avgRatingContainer = document.querySelector(this.widgetContainer + '.js-rmp-avg-rating' /* + ', .js-rmp-results-widget--' + postID + ' .js-rmp-avg-rating'*/);
-    this.voteCountContainer = document.querySelector(this.widgetContainer + '.js-rmp-vote-count' /*+ ' ,.js-rmp-results-widget--' + postID + ' .js-rmp-vote-count'*/);
+    this.avgRatingContainer = document.querySelectorAll(this.widgetContainer + '.js-rmp-avg-rating, .js-rmp-results-widget--' + postID + ' .js-rmp-avg-rating');
+    this.voteCountContainer = document.querySelectorAll(this.widgetContainer + '.js-rmp-vote-count, .js-rmp-results-widget--' + postID + ' .js-rmp-vote-count');
     this.noVotesContainer = document.querySelector(this.widgetContainer + '.js-rmp-not-rated');
     this.resultsTextContainer = document.querySelector(this.widgetContainer + '.js-rmp-results');
     this.noVotesContainer = document.querySelector(this.widgetContainer + '.js-rmp-not-rated');
@@ -51,11 +51,16 @@ class AjaxLoad {
     }
     // inject data
     if(this.avgRatingContainer) {
-      this.avgRatingContainer.textContent = avgRating;
+      this.avgRatingContainer.forEach((item) => {
+        item.textContent = avgRating;
+      })
     }
     if(this.voteCountContainer) {
-      this.voteCountContainer.textContent = voteCount;
+      this.voteCountContainer.forEach((item) => {
+        item.textContent = voteCount;
+      })
     }
+
     // highlight icons
     let highlightIcons = new IconHighlighter(this.widgetContainer, this.postID, avgRating);
     // handle classes
