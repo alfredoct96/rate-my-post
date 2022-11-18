@@ -8,7 +8,7 @@ class AjaxLoad {
     this.widgetContainer = '.js-rmp-widgets-container--' + postID + ' ';
     this.settings = rmp_frontend;
     this.avgRatingContainer = document.querySelector(this.widgetContainer + '.js-rmp-avg-rating' /* + ', .js-rmp-results-widget--' + postID + ' .js-rmp-avg-rating'*/);
-    this.voteCountContainer = document.querySelector(this.widgetContainer + '.js-rmp-vote-count,' /*+ ' .js-rmp-results-widget--' + postID + ' .js-rmp-vote-count'*/);
+    this.voteCountContainer = document.querySelector(this.widgetContainer + '.js-rmp-vote-count' /*+ ' ,.js-rmp-results-widget--' + postID + ' .js-rmp-vote-count'*/);
     this.noVotesContainer = document.querySelector(this.widgetContainer + '.js-rmp-not-rated');
     this.resultsTextContainer = document.querySelector(this.widgetContainer + '.js-rmp-results');
     this.noVotesContainer = document.querySelector(this.widgetContainer + '.js-rmp-not-rated');
@@ -37,7 +37,7 @@ class AjaxLoad {
     const body = await response.json();
     let voteCount = body.voteCount;
     let avgRating = body.avgRating;
-    let error = response.errorMsg;
+    let error = body.errorMsg;
     this.loadResults(voteCount, avgRating, error);
   }
 
