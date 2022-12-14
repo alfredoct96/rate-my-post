@@ -24,12 +24,10 @@ class AjaxLoad {
 
 
   async events() {
-    const formData = new FormData();
-    Object.keys(this.data).forEach(key => formData.append(key, this.data[key]));
+    const queryString = new URLSearchParams(this.data);
 
-    const response = await fetch(this.settings.admin_ajax, {
-      method: 'POST',
-      body: formData,
+    const response = await fetch(this.settings.admin_ajax + "?" + queryString.toString(), {
+      method: 'GET',
     });
     if(!response.ok) {
       return;

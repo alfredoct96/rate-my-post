@@ -213,8 +213,8 @@ class Rate_My_Post_Public {
 				'errorMsg' 	=> '',
 			);
 
-	    $post_id = intval( $_POST['postID'] );
-			$nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : false;
+	    $post_id = intval( $_GET['postID'] );
+			$nonce = isset( $_GET['nonce'] ) ? $_GET['nonce'] : false;
 
 			// security check
 			if( ! $post_id ) {
