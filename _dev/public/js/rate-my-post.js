@@ -28,6 +28,16 @@ function init_rate_my_post() {
   // postsIDs = [...new Set(postsIDs)]; //requires polyfill
 
   // ajax load results
+  // ajax load for all widgets
+  if( rmp_frontend.ajaxLoadAllWidgets == 2 ) {
+    uniquePostIDs.forEach((postID) => {
+    let ajaxLoad = new AjaxLoad(postID);
+      let initWidget = new InitWidget(postID);
+    });
+    return;
+  }
+
+  // ajax load for one widget
   if( rmp_frontend.ajaxLoad == 2 ) {
     let ajaxLoad = new AjaxLoad(uniquePostIDs[0]); // limit to one due to script executions
     let initWidget = new InitWidget(uniquePostIDs[0]);

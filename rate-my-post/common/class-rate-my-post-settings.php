@@ -59,6 +59,7 @@ class Rate_My_Post_Settings {
       'widgetAlign'         => 1,
       'structuredDataType'  => 'none',
       'ajaxLoad'            => 1,
+      'ajaxLoadAllWidgets'  => 1,
     );
     return $options;
   }
@@ -86,6 +87,7 @@ class Rate_My_Post_Settings {
     'socialShare',
     'widgetAlign',
     'ajaxLoad',
+    'ajaxLoadAllWidgets',
   );
 
 	// url options for the plugin

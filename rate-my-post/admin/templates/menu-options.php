@@ -573,10 +573,11 @@
           class="rmp-tab-content__input-checkbox js-rmp-option"
           <?php echo ($rmp_options['ajaxLoad'] === 2) ? 'checked':""; ?>>
         <label class="rmp-tab-content__label" for="rmp-ajax-load">
-          <?php echo ( esc_html__( 'AJAX load results', 'rate-my-post' ) ); ?>
+          <?php echo ( esc_html__( 'AJAX load results only for first widget', 'rate-my-post' ) ); ?>
         </label>
         <p class="rmp-tab-content__notice">
           <?php echo ( esc_html__( 'If you are utilizing page caching, enable this option. Not required if you use WP Super Cache, LiteSpeed Cache, WP Fastest Cache, WP Rocket or SG Optimizer', 'rate-my-post' ) ); ?>.
+          <strong><?php echo ( esc_html__( 'This enable AJAX load only for first widget on page.', 'rate-my-post' ) ); ?></strong>
         </p>
       </td>
     </tr>
@@ -595,6 +596,21 @@
         </label>
         <p class="rmp-tab-content__notice">
           <?php echo ( esc_html__( 'If enabled all plugin data (settings, customization, vote count, rating and feedback) will be deleted when you uninstall the plugin', 'rate-my-post' ) ); ?>.
+        </p>
+      </td>
+      <td>
+        <input
+          id="rmp-ajax-load-all-widgets"
+          type="checkbox"
+          data-key="ajaxLoadAllWidgets"
+          class="rmp-tab-content__input-checkbox js-rmp-option"
+          <?php echo ($rmp_options['ajaxLoadAllWidgets'] === 2) ? 'checked':""; ?>>
+        <label class="rmp-tab-content__label" for="rmp-ajax-load-all-widgets">
+          <?php echo ( esc_html__( 'AJAX load results for all widgets', 'rate-my-post' ) ); ?>
+        </label>
+        <p class="rmp-tab-content__notice">
+          <?php echo ( esc_html__( 'If you are utilizing page caching, enable this option. Not required if you use WP Super Cache, LiteSpeed Cache, WP Fastest Cache, WP Rocket or SG Optimizer', 'rate-my-post' ) ); ?>.
+          <strong><?php echo ( esc_html__( 'This enable AJAX load for all widgets on page. It is not recommended if there are too many widgets on page.', 'rate-my-post' ) ); ?></strong>
         </p>
       </td>
     </tr>

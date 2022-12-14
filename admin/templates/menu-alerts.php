@@ -21,6 +21,7 @@
   global $wp_version;
   $options = get_option( 'rmp_options' );
   $ajax_load = $options['ajaxLoad'];
+  $ajax_load_all_widgets = $options['ajaxLoadAllWidgets'];
   $security = get_option( 'rmp_security' );
 ?>
 
@@ -40,7 +41,7 @@
   </div>
 <?php endif; ?>
 
-<?php if ( $ajax_load != 2 && $this->has_incompatible_caching() ): ?>
+<?php if ( $ajax_load != 2 && $ajax_load_all_widgets !== 2 && $this->has_incompatible_caching() ): ?>
   <div class="rmp-alert">
     <p class="rmp-alert__text">
       <?php echo ( esc_html__( 'We detected a caching system. It is recommended that you enable Ajax Load in the advanced settings for better user experience.', 'rate-my-post' ) ); ?>.

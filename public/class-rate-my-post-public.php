@@ -101,6 +101,7 @@ class Rate_My_Post_Public {
 				 'loggedIn'					 		=> is_user_logged_in(),
 				 'positiveThreshold'    => intval( $options['positiveNegative'] ),
 				 'ajaxLoad' 						=> intval( $options['ajaxLoad'] ),
+				 'ajaxLoadAllWidgets' => intval( $options['ajaxLoadAllWidgets'] ),
 				 'nonce'       					=> wp_create_nonce( 'rmp_public_nonce' ),
         )
     );
@@ -1210,7 +1211,7 @@ class Rate_My_Post_Public {
 
 	// clears cache for the most popular caching plugins
 	private function clear_cache( $post_id, $options ) {
-		if( $options['ajaxLoad'] == 2 ) { // ajax loading, no need to clear cache
+		if( $options['ajaxLoad'] == 2 || $options['ajaxLoadAllWidgets'] == 2 ) { // ajax loading, no need to clear cache
 			return;
 		}
 		// WP Super Cache
@@ -1350,7 +1351,7 @@ class Rate_My_Post_Public {
 			return '';
 		}
 
-		if( $options['ajaxLoad'] == 2 && ! $this->is_amp_page() ) {
+		if( ( $options['ajaxLoad'] == 2 || $options['ajaxLoadAllWidgets'] ) && ! $this->is_amp_page() ) {
 			$vote_count = '';
 			$avg_rating = '';
 		}
@@ -1595,7 +1596,7 @@ class Rate_My_Post_Public {
 		}
 
 		// No highlight - if "Ajax load" is enabled
-		if( $options['ajaxLoad'] == 2 && ( $is_rating_widget || $is_results_widget ) ) {
+		if( ( $options['ajaxLoad'] == 2 || $options['ajaxLoadAllWidgets'] == 2 ) && ( $is_rating_widget || $is_results_widget ) ) {
 			$classes = array_fill( 0, $max_rating, '' );
 			return $classes;
 		}

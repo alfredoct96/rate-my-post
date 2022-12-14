@@ -19,7 +19,7 @@
   $visual_rating = self::get_visual_rating( $post_id, 'js-rmp-results-icon', true );
   $ajax_load = false;
 
-  if ( $options['ajaxLoad'] == 2 ) {
+  if ( $options['ajaxLoad'] == 2 || $options['ajaxLoadAllWidgets'] == 2 ) {
     $ajax_load = true;
   }
 ?>
