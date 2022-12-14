@@ -62,3 +62,7 @@ export function re_init() {
   let destroyWidgets = new DestroyWidgets();
   init_rate_my_post();
 }
+
+export function init_single_widget(postId) {
+  new InitWidget(postId);
+}
