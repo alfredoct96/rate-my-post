@@ -573,11 +573,12 @@
           class="rmp-tab-content__input-checkbox js-rmp-option"
           <?php echo ($rmp_options['ajaxLoad'] === 2) ? 'checked':""; ?>>
         <label class="rmp-tab-content__label" for="rmp-ajax-load">
-          <?php echo ( esc_html__( 'AJAX load results only for first widget', 'rate-my-post' ) ); ?>
+          <?php echo ( esc_html__( 'AJAX load results', 'rate-my-post' ) ); ?>
         </label>
         <p class="rmp-tab-content__notice">
           <?php echo ( esc_html__( 'If you are utilizing page caching, enable this option. Not required if you use WP Super Cache, LiteSpeed Cache, WP Fastest Cache, WP Rocket or SG Optimizer', 'rate-my-post' ) ); ?>.
           <strong><?php echo ( esc_html__( 'This enable AJAX load only for first widget on page.', 'rate-my-post' ) ); ?></strong>
+          <?php echo ( esc_html__( 'This can be enabled only if AJAX load results is enabled.', 'rate-my-post' ) ); ?>
         </p>
       </td>
     </tr>

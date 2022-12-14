@@ -914,10 +914,10 @@ msgid "If your website is available in multiple languages enable this option. Yo
 msgstr ""
 
 #: admin/templates/menu-options.php:576, rate-my-post/admin/templates/menu-options.php:576
-msgid "AJAX load results only for first widget"
+msgid "AJAX load results"
 msgstr ""
 
-#: admin/templates/menu-options.php:579, admin/templates/menu-options.php:612, rate-my-post/admin/templates/menu-options.php:579, rate-my-post/admin/templates/menu-options.php:612
+#: admin/templates/menu-options.php:579, admin/templates/menu-options.php:613, rate-my-post/admin/templates/menu-options.php:579, rate-my-post/admin/templates/menu-options.php:613
 msgid "If you are utilizing page caching, enable this option. Not required if you use WP Super Cache, LiteSpeed Cache, WP Fastest Cache, WP Rocket or SG Optimizer"
 msgstr ""
 
@@ -925,27 +925,31 @@ msgstr ""
 msgid "This enable AJAX load only for first widget on page."
 msgstr ""
 
-#: admin/templates/menu-options.php:595, rate-my-post/admin/templates/menu-options.php:595
+#: admin/templates/menu-options.php:581, rate-my-post/admin/templates/menu-options.php:581
+msgid "This can be enabled only if AJAX load results is enabled."
+msgstr ""
+
+#: admin/templates/menu-options.php:596, rate-my-post/admin/templates/menu-options.php:596
 msgid "Delete all plugin data on uninstall"
 msgstr ""
 
-#: admin/templates/menu-options.php:598, rate-my-post/admin/templates/menu-options.php:598
+#: admin/templates/menu-options.php:599, rate-my-post/admin/templates/menu-options.php:599
 msgid "If enabled all plugin data (settings, customization, vote count, rating and feedback) will be deleted when you uninstall the plugin"
 msgstr ""
 
-#: admin/templates/menu-options.php:609, rate-my-post/admin/templates/menu-options.php:609
+#: admin/templates/menu-options.php:610, rate-my-post/admin/templates/menu-options.php:610
 msgid "AJAX load results for all widgets"
 msgstr ""
 
-#: admin/templates/menu-options.php:613, rate-my-post/admin/templates/menu-options.php:613
+#: admin/templates/menu-options.php:614, rate-my-post/admin/templates/menu-options.php:614
 msgid "This enable AJAX load for all widgets on page. It is not recommended if there are too many widgets on page."
 msgstr ""
 
-#: admin/templates/menu-options.php:624, admin/templates/menu-options.php:635, rate-my-post/admin/templates/menu-options.php:624, rate-my-post/admin/templates/menu-options.php:635
+#: admin/templates/menu-options.php:625, admin/templates/menu-options.php:636, rate-my-post/admin/templates/menu-options.php:625, rate-my-post/admin/templates/menu-options.php:636
 msgid "Save Settings"
 msgstr ""
 
-#: admin/templates/menu-options.php:628, rate-my-post/admin/templates/menu-options.php:628
+#: admin/templates/menu-options.php:629, rate-my-post/admin/templates/menu-options.php:629
 msgid "Reset Settings"
 msgstr ""
 

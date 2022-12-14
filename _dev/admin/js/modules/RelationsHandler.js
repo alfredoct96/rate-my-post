@@ -13,6 +13,9 @@ class RelationsHandler {
     // IP tracking
     this.ipTracking = $('.js-rmp-track-ip');
     this.ipDoubleVotes = $('.js-rmp-ip-double-vote');
+    // Ajax load
+    this.ajaxLoad = $('#rmp-ajax-load');
+    this.ajaxLoadAllWidgets = $('#rmp-ajax-load-all-widgets');
     this.events();
   }
 
@@ -26,6 +29,9 @@ class RelationsHandler {
     // IP dependencies
     this.ipTracking.change((event) => this.handleIpTrackingDependencies());
     this.handleIpTrackingDependencies();
+    // Ajax load
+    this.ajaxLoad.change((event) => this.handleAjaxLoadDependencies());
+    this.handleAjaxLoadDependencies();
   }
 
   handleSocialFollowDependencies() {
@@ -57,8 +63,17 @@ class RelationsHandler {
     }
   }
 
-
-
+  handleAjaxLoadDependencies() {
+    if(this.ajaxLoad.is(':checked')) {
+      this.ajaxLoadAllWidgets.prop('disabled', false);
+      this.ajaxLoadAllWidgets.removeAttr('disabled');
+      return;
+    }
+    this.ajaxLoadAllWidgets.prop('disabled', true);
+    this.ajaxLoadAllWidgets.attr('disabled', 'disabled');
+    this.ajaxLoadAllWidgets.prop('checked', false);
+    this.ajaxLoadAllWidgets.val('1');
+  }
 }
 
 export default RelationsHandler;
